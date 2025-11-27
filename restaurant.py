@@ -1,21 +1,15 @@
 import os
-import json
+from utils.fileHandler import load_json, save_json
 
 usuario_actual = None
 compras_global = {}
 totalPagar_global = 0
 
-with open("productos.json", "r") as f:
-    productos = json.load(f)
-
-try:
-    with open("cliente.json", "r") as f:
-        cliente_data = json.load(f)
-except (FileNotFoundError, json.JSONDecodeError):
-    cliente_data = {"clientes": []}
+productos = load_json("productos.json") or {"platillos": [], "bebidas": [], "adiciones": []}
+cliente_data = load_json("cliente.json") or {"clientes": []}
     
 CLIENT_FILE = open("cliente.json")
-CLIENT_FILE = open("productos.json")
+PRODUCT_FILE = open("productos.json")
 
 def limpiarPantalla():
     input("Presione Enter para continuar...")
@@ -156,8 +150,7 @@ def guardarPedido(compras):
         cliente_data["clientes"].append(new_cliente)
         usuario_actual = new_cliente
         print("Pedido guardado correctamente.")
-    with open("cliente.json", "w") as f:
-        json.dump(cliente_data, f, indent=2)
+    save_json("cliente.json", cliente_data)
         
 def addProducto():
     tipo = input("Ingrese el tipo de producto (platillo, bebida o adicion): ")
@@ -171,8 +164,7 @@ def addProducto():
         productos["adiciones"].append({"nombre": nombre, "precio": precio})
     else:
         print("Tipo de producto inválido.")
-    with open("productos.json", "w") as f:
-        json.dump(productos, f, indent=2)
+    save_json("productos.json", productos)
     print("Producto agregado correctamente.")
     
 
