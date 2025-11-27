@@ -1,84 +1,20 @@
 import os
 from utils.fileHandler import load_json, save_json
+from utils.menuApp import menuPizzas, menuBebidas, menuToppings
+from utils.path import CLIENT_FILE, PRODUCT_FILE
 
 usuario_actual = None
 compras_global = {}
 totalPagar_global = 0
 
-productos = load_json("productos.json") or {"platillos": [], "bebidas": [], "adiciones": []}
-cliente_data = load_json("cliente.json") or {"clientes": []}
+productos = load_json(PRODUCT_FILE) or {"platillos": [], "bebidas": [], "adiciones": []}
+cliente_data = load_json(CLIENT_FILE) or {"clientes": []}
     
-CLIENT_FILE = open("cliente.json")
-PRODUCT_FILE = open("productos.json")
 
 def limpiarPantalla():
     input("Presione Enter para continuar...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def menuPlatillos():
-    print("=== Menú de Platillos ===")
-    platillos = productos["platillos"]
-    for i, platillo in enumerate(platillos):
-        print(f"{i + 1}. {platillo['nombre']} - ${platillo['precio']}")
-
-    opcion = input(f"Seleccione un platillo (1-{len(platillos)}): ")
-
-    try:
-        index = int(opcion) - 1
-        if 0 <= index < len(platillos):
-            item = platillos[index]
-            print(f"Ha seleccionado {item['nombre']}.")
-            return (f"{item['nombre']} - ${item['precio']}", item['precio'])
-        else:
-            print("Opción inválida.")
-            return None
-    except ValueError:
-        print("Opción inválida.")
-        return None
-
-
-def menuBebidas():
-    print("=== Menú de Bebidas ===")
-    bebidas = productos["bebidas"]
-    for i, bebida in enumerate(bebidas):
-        print(f"{i + 1}. {bebida['nombre']} - ${bebida['precio']}")
-
-    opcion = input(f"Seleccione una bebida (1-{len(bebidas)}): ")
-
-    try:
-        index = int(opcion) - 1
-        if 0 <= index < len(bebidas):
-            item = bebidas[index]
-            print(f"Ha seleccionado {item['nombre']}.")
-            return (f"{item['nombre']} - ${item['precio']}", item['precio'])
-        else:
-            print("Opción inválida.")
-            return None
-    except ValueError:
-        print("Opción inválida.")
-        return None
-
-def menuAdiciones():
-    print("=== Menú de Adiciones ===")
-    adiciones = productos["adiciones"]
-    for i, adicion in enumerate(adiciones):
-        print(f"{i + 1}. {adicion['nombre']} - ${adicion['precio']}")
-
-    opcion = input(f"Seleccione una adición (1-{len(adiciones)}): ")
-
-    try:
-        index = int(opcion) - 1
-        if 0 <= index < len(adiciones):
-            item = adiciones[index]
-            print(f"Ha seleccionado {item['nombre']}.")
-            return (f"{item['nombre']} - ${item['precio']}", item['precio'])
-        else:
-            print("Opción inválida.")
-            return None
-    except ValueError:
-        print("Opción inválida.")
-        return None
-    
 def eliminarProducto():
     global compras_global, totalPagar_global
     producto = input("Ingrese el nombre del producto a eliminar: ")
@@ -150,7 +86,7 @@ def guardarPedido(compras):
         cliente_data["clientes"].append(new_cliente)
         usuario_actual = new_cliente
         print("Pedido guardado correctamente.")
-    save_json("cliente.json", cliente_data)
+    save_json(CLIENT_FILE, cliente_data)
         
 def addProducto():
     tipo = input("Ingrese el tipo de producto (platillo, bebida o adicion): ")
@@ -164,7 +100,7 @@ def addProducto():
         productos["adiciones"].append({"nombre": nombre, "precio": precio})
     else:
         print("Tipo de producto inválido.")
-    save_json("productos.json", productos)
+    save_json(PRODUCT_FILE, productos)
     print("Producto agregado correctamente.")
     
 
@@ -173,9 +109,9 @@ def menuPrincipal():
     os.system('cls' if os.name == 'nt' else 'clear')
     while True:
         print("=== Menú Principal ===")
-        print("1. Platillos")
+        print("1. Pizzas")
         print("2. Bebidas")
-        print("3. Adiciones")
+        print("3. Toppings")
         print("4. Guardar Pedido")
         print("5. Cargar Pedido")
         print("6. Agregar Producto")
@@ -191,11 +127,11 @@ def menuPrincipal():
     
         match opcion:
             case '1':
-                resultado = menuPlatillos()
+                resultado = menuPizzas()
             case '2':
                 resultado = menuBebidas()
             case '3':
-                resultado = menuAdiciones()
+                resultado = menuToppings()
             case '4':
                 guardarPedido(compras_global)
             case '5':

@@ -1,5 +1,8 @@
 import json
 
+CLIENT_FILE = open("cliente.json")
+PRODUCT_FILE = open("productos.json")
+
 def load_json(filename):
     """Load data from a JSON file, handling errors gracefully."""
     try:
