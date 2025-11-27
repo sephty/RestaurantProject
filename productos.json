@@ -1,0 +1,72 @@
+{
+  "platillos": [
+    {
+      "nombre": "Tacos",
+      "precio": 5000
+    },
+    {
+      "nombre": "Enchiladas",
+      "precio": 7000
+    },
+    {
+      "nombre": "Quesadillas",
+      "precio": 6000
+    },
+    {
+      "nombre": "Burritos",
+      "precio": 8000
+    },
+    {
+      "nombre": "Tamales",
+      "precio": 5500
+    },
+    {
+      "nombre": "Pizza",
+      "precio": 5600.0
+    }
+  ],
+  "bebidas": [
+    {
+      "nombre": "Agua",
+      "precio": 2000
+    },
+    {
+      "nombre": "Refresco",
+      "precio": 3000
+    },
+    {
+      "nombre": "Cerveza",
+      "precio": 4000
+    },
+    {
+      "nombre": "Jugo",
+      "precio": 3500
+    },
+    {
+      "nombre": "Te",
+      "precio": 2500
+    }
+  ],
+  "adiciones": [
+    {
+      "nombre": "Guacamole",
+      "precio": 2500
+    },
+    {
+      "nombre": "Salsa Extra",
+      "precio": 1500
+    },
+    {
+      "nombre": "Queso Extra",
+      "precio": 2000
+    },
+    {
+      "nombre": "Queso Crema",
+      "precio": 1800
+    },
+    {
+      "nombre": "Chips",
+      "precio": 1200
+    }
+  ]
+}

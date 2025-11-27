@@ -1,0 +1,12 @@
+{
+  "clientes": [
+    {
+      "nombre": "Alex",
+      "pedidos": [
+        "Burritos - $8000",
+        "Agua - $2000",
+        "Refresco - $3000"
+      ]
+    }
+  ]
+}
