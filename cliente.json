@@ -1,11 +1,11 @@
 {
   "clientes": [
     {
-      "nombre": "Alex",
+      "id": 1,
+      "nombre": "Arin",
       "pedidos": [
-        "Burritos - $8000",
-        "Agua - $2000",
-        "Refresco - $3000"
+        "P001",
+        "B001"
       ]
     }
   ]

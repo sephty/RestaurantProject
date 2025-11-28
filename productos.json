@@ -1,71 +1,99 @@
 {
-  "platillos": [
+  "pizzas": [
     {
-      "nombre": "Tacos",
-      "precio": 5000
+      "code": "P001",
+      "nombre": "Pizzas Margherita",
+      "precio": 13000
     },
     {
-      "nombre": "Enchiladas",
-      "precio": 7000
+      "code": "P002",
+      "nombre": "Pizza Pepperoni",
+      "precio": 14000
     },
     {
-      "nombre": "Quesadillas",
-      "precio": 6000
+      "code": "P003",
+      "nombre": "Pizza Hawaiana",
+      "precio": 13000
     },
     {
-      "nombre": "Burritos",
-      "precio": 8000
+      "code": "P004",
+      "nombre": "Pizza Vegetariana",
+      "precio": 12500
     },
     {
-      "nombre": "Tamales",
-      "precio": 5500
-    },
-    {
-      "nombre": "Pizza",
-      "precio": 5600.0
+      "code": "P005",
+      "nombre": "Pizza Cuatro Quesos",
+      "precio": 15000
     }
   ],
   "bebidas": [
     {
+      "code": "B001",
       "nombre": "Agua",
       "precio": 2000
     },
     {
+      "code": "B002",
       "nombre": "Refresco",
       "precio": 3000
     },
     {
+      "code": "B003",
       "nombre": "Cerveza",
       "precio": 4000
     },
     {
+      "code": "B004",
       "nombre": "Jugo",
       "precio": 3500
     },
     {
+      "code": "B005",
       "nombre": "Te",
       "precio": 2500
     }
   ],
-  "adiciones": [
+  "toppings": [
     {
-      "nombre": "Guacamole",
+      "code": "T001",
+      "nombre": "Pepperoni Extra",
       "precio": 2500
     },
     {
-      "nombre": "Salsa Extra",
+      "code": "T002",
+      "nombre": "Champi\u00f1ones",
+      "precio": 2000
+    },
+    {
+      "code": "T003",
+      "nombre": "Aceitunas",
       "precio": 1500
     },
     {
+      "code": "T004",
       "nombre": "Queso Extra",
       "precio": 2000
     },
     {
-      "nombre": "Queso Crema",
+      "code": "T005",
+      "nombre": "Jam\u00f3n",
       "precio": 1800
+    }
+  ],
+  "salsas": [
+    {
+      "code": "S001",
+      "nombre": "Salsa de Tomate",
+      "precio": 1000
     },
     {
-      "nombre": "Chips",
+      "code": "S002",
+      "nombre": "Salsa BBQ",
+      "precio": 1500
+    },
+    {
+      "code": "S003",
+      "nombre": "Salsa Picante",
       "precio": 1200
     }
   ]
