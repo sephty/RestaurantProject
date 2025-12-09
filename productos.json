@@ -61,7 +61,7 @@
     },
     {
       "code": "T002",
-      "nombre": "Champi\u00f1ones",
+      "nombre": "Champiñones",
       "precio": 2000
     },
     {
@@ -76,8 +76,35 @@
     },
     {
       "code": "T005",
-      "nombre": "Jam\u00f3n",
+      "nombre": "Jamón",
       "precio": 1800
+    }
+  ],
+  "adiciones": [
+    {
+      "code": "A001",
+      "nombre": "Breadsticks",
+      "precio": 8000
+    },
+    {
+      "code": "A002",
+      "nombre": "Mozzarella Sticks",
+      "precio": 9000
+    },
+    {
+      "code": "A003",
+      "nombre": "Chicken Wings",
+      "precio": 12000
+    },
+    {
+      "code": "A004",
+      "nombre": "Garlic Bread",
+      "precio": 7000
+    },
+    {
+      "code": "A005",
+      "nombre": "Onion Rings",
+      "precio": 6500
     }
   ],
   "salsas": [

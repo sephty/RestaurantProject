@@ -1,117 +1,102 @@
-from utils.fileHandler import load_json, save_json
-from utils.path import CLIENT_FILE, PRODUCT_FILE
+"""
+Generic menu utilities for product selection.
+"""
+
+from utils.productos import obtenerProductos
 import os
 
-productos = load_json(PRODUCT_FILE) or {"pizzas": [], "bebidas": [], "toppings": [], "salsas": []}
-cliente_data = load_json(CLIENT_FILE) or {"clientes": []}
-
 def limpiarPantalla():
-    input("Presione Enter para continuar...")
-    os.system('cls' if os.name == 'nt' else 'clear')
-    
-def menuPizzas():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print("=== Menú de Pizzas ===")
-    pizzas = productos["pizzas"]
-    for i, pizza in enumerate(pizzas):
-        print(f"{i + 1}. {pizza['nombre']} ({pizza['code']}) - ${pizza['precio']}")
-
-    opcion = input(f"Seleccione una pizza (1-{len(pizzas)}): ")
-
+    """Clear screen utility."""
     try:
-        index = int(opcion) - 1
-        if 0 <= index < len(pizzas):
-            item = pizzas[index]
-            nombre_pizza = item['nombre']
-            precio_pizza = item['precio']
-            code_pizza = item['code']
+        input("Presione Enter para continuar...")
+    except KeyboardInterrupt:
+        print("\nOperación cancelada.")
+    finally:
+        os.system('cls' if os.name == 'nt' else 'clear')
 
-            print("¿Desea agregar toppings a esta pizza? (s/n): ")
-            agregar_toppings = input().lower() == 's'
+def menu_selector(categoria, titulo, permitir_toppings=False):
 
-            toppings_seleccionados = []
-            precio_total = precio_pizza
-            toppings_codes = []
+    productos = obtenerProductos()
 
-            if agregar_toppings:
-                toppings = productos["toppings"]
-                while True:
-                    print("Toppings disponibles:")
-                    for i, topping in enumerate(toppings):
-                        print(f"{i + 1}. {topping['nombre']} ({topping['code']}) - ${topping['precio']}")
-
-                    opcion_topping = input("Seleccione un topping (número) o 'fin' para terminar: ")
-                    if opcion_topping.lower() == 'fin':
-                        break
-
-                    try:
-                        index_topping = int(opcion_topping) - 1
-                        if 0 <= index_topping < len(toppings):
-                            topping = toppings[index_topping]
-                            toppings_seleccionados.append(topping['nombre'])
-                            toppings_codes.append(topping['code'])
-                            precio_total += topping['precio']
-                            print(f"Agregado: {topping['nombre']}")
-                        else:
-                            print("Opción inválida.")
-                    except ValueError:
-                        print("Opción inválida.")
-
-            nombre_final = nombre_pizza
-            if toppings_seleccionados:
-                nombre_final += f" con {', '.join(toppings_seleccionados)}"
-
-            print(f"Ha seleccionado {nombre_final}.")
-            
-            return (code_pizza, precio_total)  
-        else:
-            print("Opción inválida.")
-            return None
-    except ValueError:
-        print("Opción inválida.")
+    if categoria not in productos:
+        print(f"Error: Categoría '{categoria}' no encontrada.")
         return None
 
+    items = productos[categoria]
+    if not items:
+        print(f"No hay {categoria} disponibles.")
+        return None
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(f"=== {titulo} - Pizzería ===")
+
+    for i, item in enumerate(items):
+        print(f"{i + 1}. {item['nombre']} ({item['code']}) - ${item['precio']}")
+
+    while True:
+        try:
+            opcion = int(input(f"Seleccione una opción (1-{len(items)}): "))
+            if 1 <= opcion <= len(items):
+                break
+            print("Opción inválida.")
+        except ValueError:
+            print("Por favor ingrese un número válido.")
+        except KeyboardInterrupt:
+            print("\nOperación cancelada.")
+            return None
+
+    if opcion is None:
+        return None
+
+    index = opcion - 1
+    item = items[index]
+    precio_total = item['precio']
+
+    # Special handling for pizzas with toppings
+    if permitir_toppings and categoria == 'pizzas':
+        toppings = productos.get('toppings', [])
+        if toppings:
+            try:
+                print("¿Desea agregar toppings? (s/n): ", end="")
+                respuesta = input().lower()
+                if respuesta == 's':
+                    print("\nToppings disponibles:")
+                    for i, topping in enumerate(toppings):
+                        print(f"{i + 1}. {topping['nombre']} - ${topping['precio']}")
+
+                    while True:
+                        try:
+                            topping_opcion = input("Seleccione topping (número) o 'fin': ")
+                            if topping_opcion.lower() == 'fin':
+                                break
+                            topping_idx = int(topping_opcion) - 1
+                            if 0 <= topping_idx < len(toppings):
+                                topping = toppings[topping_idx]
+                                precio_total += topping['precio']
+                                print(f"✓ Agregado: {topping['nombre']}")
+                            else:
+                                print("Opción inválida.")
+                        except ValueError:
+                            print("Opción inválida.")
+                        except KeyboardInterrupt:
+                            print("\nOperación cancelada.")
+                            return None
+            except KeyboardInterrupt:
+                print("\nOperación cancelada.")
+                return None
+
+    print(f"✓ Seleccionado: {item['nombre']}")
+    return (item['code'], precio_total)
+
+# Specific menu functions using the generic selector
+def menuPizzas():
+    return menu_selector('pizzas', 'Menú de Pizzas', permitir_toppings=True)
 
 def menuBebidas():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print("=== Menú de Bebidas ===")
-    bebidas = productos["bebidas"]
-    for i, bebida in enumerate(bebidas):
-        print(f"{i + 1}. {bebida['nombre']} ({bebida['code']}) - ${bebida['precio']}")
+    return menu_selector('bebidas', 'Menú de Bebidas')
 
-    opcion = input(f"Seleccione una bebida (1-{len(bebidas)}): ")
-
-    try:
-        index = int(opcion) - 1
-        if 0 <= index < len(bebidas):
-            item = bebidas[index]
-            print(f"Ha seleccionado {item['nombre']}.")
-            return (item['code'], item['precio'])
-        else:
-            print("Opción inválida.")
-            return None
-    except ValueError:
-        print("Opción inválida.")
-        return None
+def menuAdiciones():
+    return menu_selector('adiciones', 'Menú de Adiciones')
 
 def menuSalsas():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print("=== Menú de Salsas ===")
-    salsas = productos["salsas"]
-    for i, salsa in enumerate(salsas):
-        print(f"{i + 1}. {salsa['nombre']} ({salsa['code']}) - ${salsa['precio']}")
-
-    opcion = input(f"Seleccione una salsa (1-{len(salsas)}): ")
-
-    try:
-        index = int(opcion) - 1
-        if 0 <= index < len(salsas):
-            item = salsas[index]
-            print(f"Ha seleccionado {item['nombre']}.")
-            return (item['code'], item['precio'])
-        else:
-            print("Opción inválida.")
-            return None
-    except ValueError:
-        print("Opción inválida.")
-        return None
+    return menu_selector('salsas', 'Menú de Salsas')

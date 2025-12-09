@@ -3,9 +3,49 @@
     {
       "id": 1,
       "nombre": "Arin",
+      "admin": false,
       "pedidos": [
         "P001",
         "B001"
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Admin",
+      "admin": true,
+      "pedidos": []
+    },
+    {
+      "id": 3,
+      "nombre": "alex",
+      "admin": false,
+      "pedidos": [
+        "P001_T001"
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "si",
+      "admin": false,
+      "pedidos": [
+        "P001_T001"
+      ]
+    },
+    {
+      "id": 5,
+      "nombre": "testing",
+      "admin": false,
+      "pedidos": [
+        "P001"
+      ]
+    },
+    {
+      "id": 6,
+      "nombre": "candy",
+      "admin": false,
+      "pedidos": [
+        "B001",
+        "S003"
       ]
     }
   ]
