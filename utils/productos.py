@@ -1,5 +1,8 @@
 """
-Módulo de utilidades para gestión de productos.
+Módulo central para la gestión del catálogo de productos de la pizzería.
+Maneja la carga, búsqueda y generación de códigos únicos para pizzas, bebidas,
+toppings, adiciones y salsas, proporcionando acceso unificado al inventario
+desde archivos JSON persistentes.
 """
 
 from utils.fileHandler import load_json
@@ -13,7 +16,8 @@ def recargarProductos():
     productos = load_json(PRODUCT_FILE) or {"pizzas": [], "bebidas": [], "toppings": [], "adiciones": [], "salsas": []}
 
 def get_product_by_code(code):
-    """Obtiene un producto por su código."""
+    """Busca y retorna un producto específico usando su código único,
+    revisando todas las categorías disponibles (pizzas, bebidas, etc.)."""
     recargarProductos()
     for categoria in productos.values():
         for item in categoria:
@@ -22,7 +26,9 @@ def get_product_by_code(code):
     return None
 
 def get_next_code(tipo):
-    """Genera el siguiente código disponible para un tipo de producto."""
+    """Genera automáticamente el siguiente código numérico único para un tipo específico
+    de producto (pizza=P, bebida=B, adición=A, topping=T, salsa=S), asegurando
+    que no haya conflictos con códigos existentes."""
     recargarProductos()
     if tipo == "pizza":
         existing = [p["code"] for p in productos["pizzas"]]
@@ -46,6 +52,7 @@ def get_next_code(tipo):
     return f"{prefix}{next_num:03d}"
 
 def obtenerProductos():
-    """Retorna la estructura completa de productos."""
+    """Retorna el diccionario completo con todas las categorías de productos
+    (pizzas, bebidas, toppings, adiciones, salsas) actualizado desde el archivo."""
     recargarProductos()
     return productos

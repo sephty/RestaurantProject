@@ -1,5 +1,8 @@
 """
-Módulo de autenticación y gestión de usuarios.
+Módulo encargado de la autenticación y gestión de sesiones de usuario.
+Maneja el inicio y cierre de sesión, registro de nuevos clientes,
+verificación de permisos administrativos y persistencia de datos de usuarios
+en archivos JSON para el sistema de pizzería.
 """
 
 from utils.fileHandler import load_json, save_json
@@ -21,7 +24,8 @@ def esAdmin():
     return usuario_actual.get("admin", False)
 
 def iniciarSesion():
-    """Permite al usuario iniciar sesión o registrarse."""
+    """Muestra el menú de autenticación que permite al usuario iniciar sesión con cuenta existente,
+    registrar una nueva cuenta o continuar como invitado sin credenciales."""
     global usuario_actual, cliente_data
     recargarDatos()
 
@@ -75,12 +79,14 @@ def iniciarSesion():
     return False
 
 def cerrarSesion():
-    """Cierra la sesión del usuario actual."""
+    """Finaliza la sesión del usuario actual, limpiando las variables de sesión
+    y mostrando un mensaje de despedida personalizado."""
     global usuario_actual
     if usuario_actual:
         print(f"Hasta luego, {usuario_actual['nombre']}!")
     usuario_actual = None
 
 def obtenerUsuarioActual():
-    """Retorna el usuario actualmente logueado."""
+    """Retorna la información del usuario que tiene la sesión activa actualmente,
+    o None si no hay ningún usuario logueado."""
     return usuario_actual

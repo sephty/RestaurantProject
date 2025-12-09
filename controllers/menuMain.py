@@ -1,5 +1,8 @@
 """
-Controlador del menú principal de la pizzería.
+Controlador principal que gestiona la interfaz de usuario del sistema de pizzería.
+Coordina la navegación entre diferentes menús (pizzas, bebidas, adiciones, salsas),
+maneja las operaciones del carrito de compras y proporciona acceso a funciones
+de administración para usuarios con permisos especiales.
 """
 
 import os
@@ -10,7 +13,9 @@ from utils.menuApp import menuPizzas, menuBebidas, menuAdiciones, menuSalsas, li
 from controllers.admin import menuGestionProductos
 
 def menuPrincipal():
-    """Menú principal de la pizzería."""
+    """Ejecuta el bucle principal del menú de la pizzería, mostrando opciones para
+    seleccionar productos, gestionar pedidos, administrar productos (para admins)
+    y manejar operaciones del carrito de compras en un ciclo continuo hasta salir."""
     compras_global, totalPagar_global = obtenerCompras()
 
     while True:

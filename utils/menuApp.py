@@ -1,12 +1,14 @@
 """
-Generic menu utilities for product selection.
+Utilidades de menú para la selección interactiva de productos en la pizzería.
+Proporciona funciones genéricas para mostrar menús y permitir la selección de items,
+incluyendo soporte especial para pizzas con toppings personalizables.
 """
 
 from utils.productos import obtenerProductos
 import os
 
 def limpiarPantalla():
-    """Clear screen utility."""
+    """Limpia la pantalla de la consola y espera confirmación del usuario antes de continuar."""
     try:
         input("Presione Enter para continuar...")
     except KeyboardInterrupt:

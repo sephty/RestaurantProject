@@ -1,5 +1,8 @@
 """
-Módulo de gestión de pedidos (guardar/cargar).
+Módulo responsable de la gestión completa de pedidos de clientes.
+Permite guardar pedidos en el perfil del cliente actual y cargar pedidos
+previos desde archivos JSON, facilitando la persistencia de órdenes
+y la recuperación de historiales de compra.
 """
 
 from utils.fileHandler import load_json, save_json
@@ -15,7 +18,9 @@ def recargarClientes():
     cliente_data = load_json(CLIENT_FILE) or {"clientes": []}
 
 def cargarPedido():
-    """Carga el pedido de un cliente existente."""
+    """Carga y restaura el pedido guardado de un cliente existente desde el archivo de clientes.
+    Permite buscar por nombre y reconstruye el carrito de compras con los productos previos,
+    incluyendo manejo especial para pizzas personalizadas con toppings."""
     import utils.comprasMan
     from utils.autenticacion import esAdmin
     recargarClientes()
@@ -60,7 +65,8 @@ def cargarPedido():
     return False
 
 def guardarPedido(compras):
-    """Guarda el pedido del cliente actual."""
+    """Guarda el pedido actual del cliente en su perfil, actualizando o creando el registro del cliente.
+    Convierte los productos del carrito en una lista de códigos y los almacena en el archivo de clientes JSON."""
     recargarClientes()
 
     if not compras:

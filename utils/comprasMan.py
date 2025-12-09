@@ -1,5 +1,8 @@
 """
-Módulo de gestión del carrito de compras.
+Módulo especializado en la administración del carrito de compras de la pizzería.
+Maneja la adición, eliminación y visualización de productos seleccionados,
+incluyendo cálculos automáticos de totales y soporte para pizzas personalizadas
+con múltiples toppings.
 """
 
 from utils.productos import get_product_by_code
@@ -8,7 +11,9 @@ compras_global = {}
 totalPagar_global = 0
 
 def defCompras(compras):
-    """Retorna una cadena con el detalle de las compras."""
+    """Genera una representación textual formateada del contenido del carrito,
+    optimizando la visualización de pizzas personalizadas con toppings múltiples
+    y proporcionando resúmenes cuando hay muchos productos."""
     if not compras:
         return "Ninguna compra todavía"
 
@@ -77,7 +82,8 @@ def defCompras(compras):
     return resultado
 
 def eliminarCompra():
-    """Permite eliminar productos del carrito de compras."""
+    """Proporciona interfaz interactiva para remover productos específicos del carrito,
+    permitiendo eliminar cantidades parciales y actualizando automáticamente el total."""
     global compras_global, totalPagar_global
     if not compras_global:
         print("No hay compras para eliminar.")
@@ -121,7 +127,8 @@ def eliminarCompra():
         print("Producto no encontrado en compras.")
 
 def agregarProductoCarrito(code, precio):
-    """Agrega un producto al carrito de compras."""
+    """Incorpora un producto al carrito de compras, incrementando la cantidad
+    si ya existe o creando una nueva entrada, y actualizando el total a pagar."""
     global compras_global, totalPagar_global
 
     if code in compras_global:
@@ -132,11 +139,13 @@ def agregarProductoCarrito(code, precio):
     totalPagar_global += precio
 
 def obtenerCompras():
-    """Retorna el estado actual del carrito."""
+    """Devuelve una tupla con el diccionario de compras actuales y el total acumulado
+    a pagar, permitiendo acceso externo al estado del carrito de compras."""
     return compras_global, totalPagar_global
 
 def limpiarCarrito():
-    """Limpia completamente el carrito de compras."""
+    """Resetea completamente el estado del carrito de compras, eliminando
+    todos los productos y reiniciando el total a pagar a cero."""
     global compras_global, totalPagar_global
     compras_global = {}
     totalPagar_global = 0
