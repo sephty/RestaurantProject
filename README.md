@@ -51,18 +51,6 @@ RestaurantProject/
     └── path.py                # Gestión de rutas de archivos
 ```
 
-### Patrones de Diseño Implementados
-
-#### 1. Modelo-Vista-Controlador (MVC)
-- **Modelo**: Representado por los archivos JSON (`cliente.json`, `productos.json`) y los módulos de acceso a datos
-- **Vista**: Implementada mediante las funciones de interfaz de usuario en consola
-- **Controlador**: Módulos en el directorio `controllers/` que coordinan la lógica de negocio
-
-#### 2. Separación de Responsabilidades
-- **Controllers**: Gestionan la interacción con el usuario y la navegación entre menús
-- **Utils**: Contienen la lógica de negocio y operaciones sobre datos
-- **Data Layer**: Archivos JSON que actúan como base de datos persistente
-
 ## Funcionalidades Principales
 
 ### 1. Sistema de Autenticación
@@ -116,24 +104,6 @@ Funcionalidades del módulo `pedidos.py`:
 - **Historial**: Almacenamiento de pedidos por usuario
 - **Formato de pedido**: Estructura que incluye productos, cantidades y total
 
-## Tecnologías Utilizadas
-
-### Lenguaje de Programación
-- **Python 3.x**: Lenguaje principal del proyecto
-
-### Bibliotecas Estándar
-- `json`: Manejo de archivos JSON para persistencia de datos
-- `os`: Operaciones del sistema operativo (limpieza de pantalla)
-- `sys`: Gestión de rutas y configuración del sistema
-
-### Características de Python Utilizadas
-- **Pattern Matching** (`match-case`): Manejo de opciones de menú
-- **Docstrings**: Documentación exhaustiva de funciones y módulos
-- **Manejo de excepciones**: Control de errores robusto
-- **Variables globales**: Gestión del estado de la aplicación
-- **Funciones de orden superior**: Modularidad y reutilización de código
-
-## Almacenamiento de Datos
 
 ### Estructura de `cliente.json`
 
@@ -247,55 +217,6 @@ Los usuarios con permisos de administrador pueden:
    - Confirmar eliminación
    - Persistencia automática de cambios
 
-## Aspectos Técnicos
-
-### Generación de Códigos Únicos
-
-El sistema implementa un algoritmo para generar códigos únicos:
-
-```python
-def get_next_code(tipo):
-    # Prefijo según tipo: P=Pizza, B=Bebida, A=Adición, T=Topping, S=Salsa
-    # Formato: [PREFIJO][NNN] (ej: P001, B023)
-    # Genera el siguiente número disponible
-```
-
-### Persistencia de Datos
-
-Implementación del módulo `fileHandler.py`:
-
-- **Lectura de JSON**: `load_json(filepath)`
-- **Escritura de JSON**: `save_json(filepath, data)`
-- **Manejo de errores**: Gestión de archivos inexistentes o corruptos
-- **Codificación**: UTF-8 para soporte de caracteres especiales
-
-### Seguridad y Validación
-
-1. **Validación de entrada**: Verificación de tipos de datos
-2. **Prevención de valores negativos**: En precios y cantidades
-3. **Confirmación de operaciones críticas**: Antes de eliminar datos
-4. **Manejo de excepciones**: Try-except en operaciones críticas
-
-## Limitaciones y Trabajo Futuro
-
-### Limitaciones Actuales
-
-1. **Base de datos**: Uso de archivos JSON en lugar de base de datos relacional
-2. **Seguridad**: Sin encriptación de contraseñas
-3. **Concurrencia**: No soporta múltiples usuarios simultáneos
-4. **Interfaz**: Limitada a línea de comandos
-5. **Validación**: Controles básicos de integridad de datos
-
-### Mejoras Propuestas
-
-1. **Migración a base de datos**: Implementar SQLite o PostgreSQL
-2. **Sistema de autenticación robusto**: Hash de contraseñas con bcrypt
-3. **Interfaz gráfica**: Desarrollo de GUI con Tkinter o PyQt
-4. **API REST**: Exposición de funcionalidades mediante endpoints HTTP
-5. **Reportes**: Generación de informes de ventas y estadísticas
-6. **Pagos**: Integración con pasarelas de pago
-7. **Notificaciones**: Sistema de alertas para administradores
-8. **Testing**: Implementación de pruebas unitarias y de integración
 
 ## Casos de Uso
 
