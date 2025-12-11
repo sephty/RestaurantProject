@@ -53,6 +53,7 @@ def menu_selector(categoria, titulo, permitir_toppings=False):
     index = opcion - 1
     item = items[index]
     precio_total = item['precio']
+    toppings_codes = []
 
     # Special handling for pizzas with toppings
     if permitir_toppings and categoria == 'pizzas':
@@ -74,6 +75,7 @@ def menu_selector(categoria, titulo, permitir_toppings=False):
                             topping_idx = int(topping_opcion) - 1
                             if 0 <= topping_idx < len(toppings):
                                 topping = toppings[topping_idx]
+                                toppings_codes.append(topping['code'])
                                 precio_total += topping['precio']
                                 print(f"✓ Agregado: {topping['nombre']}")
                             else:
@@ -88,6 +90,12 @@ def menu_selector(categoria, titulo, permitir_toppings=False):
                 return None
 
     print(f"✓ Seleccionado: {item['nombre']}")
+    
+    # Create custom code for pizza with toppings
+    if toppings_codes:
+        code_custom = f"{item['code']}_{'_'.join(toppings_codes)}"
+        return (code_custom, precio_total)
+    
     return (item['code'], precio_total)
 
 # Specific menu functions using the generic selector
