@@ -22,7 +22,8 @@
       "nombre": "alex",
       "admin": false,
       "pedidos": [
-        "P001_T001"
+        "A001",
+        "S003"
       ]
     }
   ]
